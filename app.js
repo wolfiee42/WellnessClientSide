@@ -6,13 +6,12 @@ const loadServices = () => {
 };
 
 const displayService = (services) => {
-  console.log(services);
   if (!services || services.length === 0) {
     // Handle no data scenario (show an error message, hide the container, etc.)
     console.error("No services found!");
     return;
   }
-  console.log(services);
+
   services.forEach((service) => {
     const parent = document.getElementById("service-container");
     const li = document.createElement("li");
@@ -27,4 +26,51 @@ const displayService = (services) => {
   });
 };
 
+const loadDoctors = (search) => {
+  document.getElementById("doctors").innerHTML = "";
+  // document.getElementById("spinner").style.display = "block";
+  // console.log(search);
+  fetch(
+    `https://wellness-oasis-clinic-api.onrender.com/doctors/list/?search=${
+      search ? search : ""
+    }`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      displayDoctors(data);
+    });
+};
+const displayDoctors = (doctors) => {
+  doctors?.forEach((doctor) => {
+    console.log(doctor);
+    const parent = document.getElementById("doctors");
+    const div = document.createElement("div");
+    div.classList.add("doc-card");
+    div.innerHTML = `
+        <img class="doc-img" src=${doctor.image} alt="" />
+              <h4>${doctor?.user}</h4>
+              <h6>${doctor?.designation[0]}</h6>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
+                numquam!
+              </p>
+             
+              <p>
+              
+              ${doctor?.specialization?.map((item) => {
+                return `<button>${item}</button>`;
+              })}
+              </p>
+
+              <button > <a target="_blank" href="docdetails.html?doctorId=${
+                doctor.id
+              }">Details</a> </button>
+        `;
+
+    parent.appendChild(div);
+  });
+};
+
 loadServices();
+loadDoctors();
