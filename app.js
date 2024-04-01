@@ -113,7 +113,31 @@ const loadSpecialization = () => {
     });
 };
 
+const loadReview = () => {
+  fetch("https://wellness-oasis-clinic-api.onrender.com/doctors/reviews/")
+    .then((res) => res.json())
+    .then((data) => displayReview(data));
+};
+
+const displayReview = (reviews) => {
+  reviews.forEach((review) => {
+    const parent = document.getElementById("review-container");
+    const div = document.createElement("div");
+    div.classList.add("review-card");
+    div.classList = "border w-[150px] px-3 py-1 rounded-md min-h-40";
+    div.innerHTML = `
+        <h4 class="text-lg font-semibold">${review.reviewer}</h4>
+        <h6 class="text-[#42A9D0]">${review.rating}</h6>
+            <p class="text-sm pt-2">
+             ${review.body.slice(0, 100)}
+            </p>
+        `;
+    parent.appendChild(div);
+  });
+};
+
 loadServices();
 loadDoctors();
 loadDesignation();
 loadSpecialization();
+loadReview();
