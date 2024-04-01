@@ -102,8 +102,52 @@
     <section class="max-w-7xl mx-auto min-h-screen">
         <h3 class="text-[#42A9D0] text-center text-3xl mb-10">Our Best Doctors</h3>
         <div class=" flex flex-row justify-between items-start ">
-            <div class="w-[25%]">
-                ehwbvlevhwb
+            <div class="w-[25%] mt-[67.5px]">
+                <!-- Component: Outline accordion -->
+                <section class="w-full bg-white border divide-y rounded divide-slate-200 border-slate-200">
+                    <details class="p-4 group" open>
+                        <summary
+                            class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer text-slate-700 focus-visible:outline-none transition-colors duration-300 group-hover:text-slate-900 ">
+                            Filter Doctors
+
+                        </summary>
+                    </details>
+                    <details class="p-4 group">
+                        <summary
+                            class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer text-slate-700 focus-visible:outline-none transition-colors duration-300 group-hover:text-slate-900 ">
+                            Designation
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="absolute right-0 w-4 h-4 transition duration-300 top-1 stroke-slate-700 shrink-0 group-open:rotate-45"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+                                aria-labelledby="title-ac24 desc-ac24">
+                                <title id="title-ac24">Open icon</title>
+                                <desc id="desc-ac24">icon that represents the state of the summary</desc>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 text-slate-500" id="designation">
+
+                        </ul>
+                    </details>
+                    <details class="p-4 group">
+                        <summary
+                            class="[&::-webkit-details-marker]:hidden relative pr-8 font-medium list-none cursor-pointer text-slate-700 focus-visible:outline-none transition-colors duration-300 group-hover:text-slate-900 ">
+                            Specialist
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                class="absolute right-0 w-4 h-4 transition duration-300 top-1 stroke-slate-700 shrink-0 group-open:rotate-45"
+                                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"
+                                aria-labelledby="title-ac23 desc-ac23">
+                                <title id="title-ac23">Open icon</title>
+                                <desc id="desc-ac23">icon that represents the state of the summary</desc>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </summary>
+                        <ul class="mt-4 text-slate-500" id="specialist">
+
+                        </ul>
+                    </details>
+                </section>
+                <!-- End Outlined accordion -->
             </div>
             <div class="w-[70%] mx-auto">
                 <div class="flex items-center justify-end">
@@ -111,7 +155,7 @@
                         class="border h-12 w-[650px] rounded-full border-[#42A9D0] px-4 focus:outline-none focus:shadow-md">
 
                 </div>
-                <div id="doctors" class="flex flex-row items-center justify-center gap-3">
+                <div id="doctors" class="grid grid-cols-3 gap-3 mt-5">
 
                 </div>
             </div>

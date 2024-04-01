@@ -6,13 +6,15 @@ const loadServices = () => {
 };
 
 const displayService = (services) => {
+  const doctorPerPages = 6;
+  let displayedDoctors = services.slice(0, doctorPerPages);
   if (!services || services.length === 0) {
     // Handle no data scenario (show an error message, hide the container, etc.)
     console.error("No services found!");
     return;
   }
 
-  services.forEach((service) => {
+  displayedDoctors.forEach((service) => {
     const parent = document.getElementById("service-container");
     const li = document.createElement("li");
     li.innerHTML = `
@@ -37,40 +39,81 @@ const loadDoctors = (search) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       displayDoctors(data);
     });
 };
 const displayDoctors = (doctors) => {
   doctors?.forEach((doctor) => {
-    console.log(doctor);
     const parent = document.getElementById("doctors");
     const div = document.createElement("div");
     div.classList.add("doc-card");
+    div.classList = "border rounded-md";
     div.innerHTML = `
-        <img class="doc-img" src=${doctor.image} alt="" />
-              <h4>${doctor?.user}</h4>
-              <h6>${doctor?.designation[0]}</h6>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
-                numquam!
-              </p>
-             
-              <p>
-              
-              ${doctor?.specialization?.map((item) => {
-                return `<button>${item}</button>`;
-              })}
-              </p>
+        <img class="doc-img rounded-t-md" src=${doctor.image} alt="" />
+            <div class="px-2 py-1 flex flex-col items-start justify-start space-y-2">
+            <h4 class="font-semibold text-lg mt-4">${doctor?.user}</h4>
+            <div class="flex flex-row items-start justify-start gap-1">
+            <p class="bg-gray-300 px-[3px] py-[2px] text-xs w-fit rounded">
+            ${doctor?.designation[0]}
+            </p>
+            <p class="bg-gray-300 px-[3px] py-[2px] text-xs w-fit rounded">
+            
+            ${doctor?.specialization?.map((item) => {
+              return `<button>${item}</button>`;
+            })}
+            </p>
+            </div>
+            <p class="text-xs pb-5">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis,
+              numquam!
+            </p>
+           
+            
 
-              <button > <a target="_blank" href="docdetails.html?doctorId=${
-                doctor.id
-              }">Details</a> </button>
+            <button class="bg-[#42A9D0] px-[5px] py-[3px] text-white rounded-md"> <a target="_blank" href="docdetails.html?doctorId=${
+              doctor.id
+            }">Details</a> </button>
+            </div>
         `;
 
     parent.appendChild(div);
   });
 };
 
+const loadDesignation = () => {
+  fetch("https://wellness-oasis-clinic-api.onrender.com/doctors/designation/")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      data.forEach((item) => {
+        const parent = document.getElementById("designation");
+        const li = document.createElement("li");
+        li.classList.add("dropdown-item");
+        li.innerText = item?.name;
+        parent.appendChild(li);
+      });
+    });
+};
+
+const loadSpecialization = () => {
+  fetch(
+    "https://wellness-oasis-clinic-api.onrender.com/doctors/specialization/"
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach((item) => {
+        const parent = document.getElementById("specialist");
+        const li = document.createElement("li");
+        li.classList.add("dropdown-item");
+        li.innerHTML = `
+        <li class="hover:bg-[#42A9D0] hover:px-[3px] hover:text-white hover:cursor-pointer rounded-md transition-colors duration-150" onclick="loadDoctors('${item.name}')"> ${item.name}</li>
+          `;
+        parent.appendChild(li);
+      });
+    });
+};
+
 loadServices();
 loadDoctors();
+loadDesignation();
+loadSpecialization();
