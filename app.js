@@ -30,8 +30,6 @@ const displayService = (services) => {
 
 const loadDoctors = (search) => {
   document.getElementById("doctors").innerHTML = "";
-  // document.getElementById("spinner").style.display = "block";
-  // console.log(search);
   fetch(
     `https://wellness-oasis-clinic-api.onrender.com/doctors/list/?search=${
       search ? search : ""
@@ -84,7 +82,6 @@ const loadDesignation = () => {
   fetch("https://wellness-oasis-clinic-api.onrender.com/doctors/designation/")
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       data.forEach((item) => {
         const parent = document.getElementById("designation");
         const li = document.createElement("li");
