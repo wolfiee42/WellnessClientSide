@@ -136,6 +136,7 @@ const displayReview = (reviews) => {
   });
 };
 
+
 loadServices();
 loadDoctors();
 loadDesignation();
