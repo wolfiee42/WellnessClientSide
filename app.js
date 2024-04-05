@@ -17,14 +17,14 @@ const displayService = (services) => {
   displayedDoctors.forEach((service) => {
     const parent = document.getElementById("service-container");
     const li = document.createElement("li");
+    li.classList = "flex flex-col max-w-[260px] mx-auto border bg-gray-50 rounded-md p-3 space-y-3";
     li.innerHTML = `
-              <img class="min-w-[260px] h-40" src=${service?.image} alt="">
+              <img class="w-[260px] rounded-md h-40" src=${service?.image} alt="">
               <h3>${service?.name}</h3>
               <p class="text-xs">${service?.description.slice(0, 100)}.</p>
               <button class=" text-[#42A9D0]">Learn more... </button>
       `;
     parent.appendChild(li);
-    li.classList = "flex flex-col max-w-[260px] space-y-3";
   });
 };
 

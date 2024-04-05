@@ -76,6 +76,7 @@ const handleLogin = (event) => {
 const DisplayloginOrLogout = () => {
   const user = true;
   const parent = document.getElementById("LoginOrLogout");
+
   //   login
   const a = document.createElement("a");
   const span1 = document.createElement("span");
@@ -94,18 +95,29 @@ const DisplayloginOrLogout = () => {
 
   span.classList = "bg-[#42A9D0] px-4 py-2 rounded text-white";
   span.innerHTML = "Logout";
+  span.addEventListener("click", handlelogOut);
   p.appendChild(span);
 
   {
     user ? parent.appendChild(p) : parent.appendChild(a);
   }
+};
 
-  //     const span = document.createElement("span");
-  //     span.classList = "bg-[#42A9D0] px-4 py-2 rounded text-white";
-  //   span.innerHTML = `
-  // ${!!user ? "Logout" : "Login"}
-  //   `;
-  //   parent.appendChild(span);
+const handlelogOut = () => {
+  const token = localStorage.getItem("token");
+  fetch("https://wellness-oasis-clinic-api.onrender.com/patients/logout", {
+    method: "POST",
+    headers: {
+      Authorization: `Token ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+    });
 };
 
 DisplayloginOrLogout();

@@ -30,7 +30,6 @@ const doctorReview = (reviews) => {
   });
 };
 const displayDetails = (doctor) => {
-  console.log(doctor);
   const parent = document.getElementById("doc-details");
   const div = document.createElement("div");
   div.classList =
@@ -59,12 +58,16 @@ const displayDetails = (doctor) => {
 
     <h4>Fees: <span class="text-[#ff0000] mb-2"> ${doctor.fee}</span> BDT</h4>
   
-   <div class="my-5">
-   <a class="bg-[#42A9D0] hover:opacity-90 transition-colors duration-150 w-fit px-[10px] py-[4px] text-white rounded-md mt-3" target="_blank"  href="takeAppointment.html?doctorId=${
-     doctor.id
-   }">Take Appointment</a>
-   </div>
-    </div>
+   
+   <button
+    type="button"
+    class="btn bg-[#42A9D0] hover:bg-cyan-500 text-white mt-2"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    >
+    Take Appointment
+    </button>
+  </div>
     `;
   parent.appendChild(div);
 };
@@ -82,38 +85,8 @@ const loadTime = (id) => {
         option.innerText = item.name;
         parent.appendChild(option);
       });
-      console.log(data);
     });
 };
-
-// const handleAppointment = () => {
-//   const param = new URLSearchParams(window.location.search).get("doctorId");
-//   const status = document.getElementsByName("status");
-//   const selected = Array.from(status).find((button) => button.checked);
-//   const symptom = document.getElementById("symptom").value;
-//   const time = document.getElementById("time-container");
-//   const selectedTime = time.options[time.selectedIndex];
-//   const patient_id = localStorage.getItem("patient_id");
-//   const info = {
-//     appointment_type: selected.value,
-//     appointment_status: "Pending",
-//     time: selectedTime.value,
-//     symptom: symptom,
-//     cancel: false,
-//     patient: patient_id,
-//     doctor: param,
-//   };
-//   console.log(info);
-//   fetch("https://wellness-oasis-clinic-api.onrender.com/appointments/", {
-//     method: "POST",
-//     headers: { "content-type": "application/json" },
-//     body: JSON.stringify(info),
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       console.log(data);
-//     });
-// };
 
 const loadPatientId = () => {
   const user_id = localStorage.getItem("user_id");
@@ -126,37 +99,34 @@ const loadPatientId = () => {
     });
 };
 
-const takeAppointment = (timeZone) => {
-  const parent = document.getElementById("takeAppointment");
-  const div = document.createElement("div");
-  div.classList = "flex items-center justify-center border";
-  div.innerHTML = `
-    <form>
-    <input id="onlineCheckbox" type="checkbox" />
-   <p>Online</p> 
-    <input id="offlineCheckbox" type="checkbox" />
-   <p>Offline</p> 
-    <label>Symptoms</label>
-    <input class="border border-red-500" />
-
-    
-    </form>
-    `;
-  parent.appendChild(div);
+const handleAppointment = () => {
+  const param = new URLSearchParams(window.location.search).get("doctorId");
+  const status = document.getElementsByName("status");
+  const selected = Array.from(status).find((button) => button.checked);
+  const symptom = document.getElementById("symptom").value;
+  const time = document.getElementById("time-container");
+  const selectedTime = time.options[time.selectedIndex];
+  const patient_id = localStorage.getItem("patient_id");
+  const info = {
+    appointment_type: selected.value,
+    appointment_status: "Pending",
+    time: selectedTime.value,
+    symptom: symptom,
+    cancel: false,
+    patient: patient_id,
+    doctor: param,
+  };
+  console.log(info);
+  fetch("https://wellness-oasis-clinic-api.onrender.com/appointments/", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(info),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 };
-
-takeAppointment();
-
-const onlineCheckbox = document.getElementById("onlineCheckbox");
-const offlineCheckbox = document.getElementById("offlineCheckbox");
-
-onlineCheckbox.addEventListener("change", function () {
-  offlineCheckbox.checked = !this.checked; // Ensure only one is checked
-});
-
-offlineCheckbox.addEventListener("change", function () {
-  onlineCheckbox.checked = !this.checked; // Ensure only one is checked
-});
 
 getparams();
 loadTime();
