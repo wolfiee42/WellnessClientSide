@@ -98,6 +98,18 @@ const DisplayloginOrLogout = () => {
   span.addEventListener("click", handlelogOut);
   p.appendChild(span);
 
+  // view profile
+  const a1 = document.createElement("a");
+  const span01 = document.createElement("span");
+  a1.classList =
+    "flex items-center gap-2 py-4 transition-colors duration-300 hover:text-cyan-500 focus:text-cyan-600 focus:outline-none focus-visible:outline-none lg:px-4";
+  a1.href = "./userDetail.html";
+  span01.classList = "border-b-2 border-b-[#42A9D0]";
+  span01.innerHTML = "View Profile";
+  a1.appendChild(span01);
+  {
+    user ? parent.appendChild(a1) : "";
+  }
   {
     user ? parent.appendChild(p) : parent.appendChild(a);
   }
